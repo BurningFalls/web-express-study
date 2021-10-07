@@ -6,8 +6,12 @@ var template = require('./lib/template.js');
 var path = require('path');
 var sanitizeHtml = require('sanitize-html');
 var qs = require('querystring');
+var compression = require('compression');
 
+// body-parser
 app.use(express.urlencoded({ extended: false }))
+// compression
+app.use(compression());
 
 app.get('/', (request, response) => {
   fs.readdir('./data', function(error, filelist){
