@@ -3,9 +3,12 @@ var app = express()
 var port = 3000
 var fs = require('fs');
 var compression = require('compression');
+var helmet = require('helmet');
 var indexRouter = require('./routes/index');
 var topicRouter = require('./routes/topic');
 
+// security
+app.use(helmet());
 // serving static files (image in 'unsplash')
 app.use(express.static('public'));
 // body-parser
