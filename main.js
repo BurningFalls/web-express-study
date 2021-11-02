@@ -7,6 +7,8 @@ var helmet = require('helmet');
 var indexRouter = require('./routes/index');
 var topicRouter = require('./routes/topic');
 var authRouter = require('./routes/auth');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session); // need to use database
 
 // security
 app.use(helmet());
@@ -16,6 +18,14 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }))
 // compression
 app.use(compression());
+// session
+app.use(session({
+  secret: 'asadlfkj!@#!@#dfgasdg', // do not share
+  resave: false,
+  saveUninitialized: true,
+  store:new FileStore()
+}))
+
 // my middleware
 app.get('*', (request, response, next) => {
   fs.readdir('./data', function(error, filelist){
