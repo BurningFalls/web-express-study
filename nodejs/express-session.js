@@ -6,6 +6,8 @@ var FileStore = require('session-file-store')(session)
 var app = express()
 
 app.use(session({
+  HttpOnly: true, // cant use js input
+  secure: true, //https
   secret: 'asadlfkj!@#!@#dfgasdg', // do not share
   resave: false,
   saveUninitialized: true,
