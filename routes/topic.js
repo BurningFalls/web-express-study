@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var sanitizeHtml = require('sanitize-html');
 var template = require('../lib/template.js');
+var auth = require('../lib/auth');
 
 router.get('/create', (request, response) => {
     var title = 'WEB - create';
@@ -18,7 +19,7 @@ router.get('/create', (request, response) => {
           <input type="submit">
         </p>
       </form>
-    `, '');
+    `, '', auth.statusUI(request, response));
     response.send(html);
   })
   
@@ -49,7 +50,8 @@ router.get('/create', (request, response) => {
           </p>
         </form>
         `,
-        `<a href="/topic/create">create</a> <a href="/topic/update/${title}">update</a>`
+        `<a href="/topic/create">create</a> <a href="/topic/update/${title}">update</a>`,
+        auth.statusUI(request, response)
       );
       response.send(html);
     });
@@ -96,7 +98,8 @@ router.post('/delete_process', (request, response) => {
             <form action="/topic/delete_process" method="post">
               <input type="hidden" name="id" value="${sanitizedTitle}">
               <input type="submit" value="delete">
-            </form>`
+            </form>`,
+            auth.statusUI(request, response)
         );
         response.send(html);
       }
