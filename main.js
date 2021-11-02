@@ -6,6 +6,7 @@ var compression = require('compression');
 var helmet = require('helmet');
 var indexRouter = require('./routes/index');
 var topicRouter = require('./routes/topic');
+var authRouter = require('./routes/auth');
 
 // security
 app.use(helmet());
@@ -25,6 +26,7 @@ app.get('*', (request, response, next) => {
 
 app.use('/', indexRouter);
 app.use('/topic', topicRouter);
+app.use('/auth', authRouter);
 
 // error handling middleware
 app.use((request, response, next) => {
