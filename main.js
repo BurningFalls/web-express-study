@@ -35,6 +35,22 @@ var authData = {
 // passport
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+// call when login success
+// store user identifier in session store
+passport.serializeUser(function(user, done) {
+  console.log('serializeUser', user);
+  done(null, user.email);
+})
+
+// used when searching for necessary information based on the stored data
+passport.deserializeUser(function(id, done) {
+  console.log('deserializeUser', id);
+  done(null, authData);
+})
+
 passport.use(new LocalStrategy(
   {
     usernameField: 'email',
@@ -42,18 +58,14 @@ passport.use(new LocalStrategy(
   },
   function(username, password, done) {
     if (username === authData.email) {
-      console.log(1);
       if (password === authData.password) {
-        console.log(2);
         return done(null, authData);
       } else {
-        console.log(3);
         return done(null, false, {
           message: 'Incorrect password.'
         });
       }
     } else {
-      console.log(4);
       return done(null, false, {
         message: 'Incorrect username.'
       });
