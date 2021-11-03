@@ -20,25 +20,9 @@ router.get('/login', (request, response) => {
   response.send(html);
 })
 
-/*
-router.post('/login_process', (request, response) => {
-  var post = request.body;
-  var email = post.email;
-  var password = post.pwd;
-  if (email === authData.email && password === authData.password) {
-    request.session.is_logined = true;
-    request.session.nickname = authData.nickname;
-    request.session.save(function() {
-      response.redirect(`/`);
-    });
-  } else {
-    response.send('Who?');
-  }
-})
-*/
-
 router.get('/logout', (request, response) => {
-  request.session.destroy(function(err) {
+  request.logout();
+  request.session.save(function() {
     response.redirect(`/`);
   })
 })

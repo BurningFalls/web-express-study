@@ -41,7 +41,6 @@ app.use(passport.session());
 // call when login success
 // store user identifier in session store
 passport.serializeUser(function(user, done) {
-  console.log('serializeUser', user);
   done(null, user.email);
 })
 
