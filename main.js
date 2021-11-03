@@ -28,6 +28,10 @@ app.use(session({
 
 // passport
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+app.post('/auth/login_process', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/auth/login'
+}));
 
 // my middleware
 app.get('*', (request, response, next) => {
