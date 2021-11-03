@@ -26,6 +26,9 @@ app.use(session({
   store:new FileStore()
 }))
 
+// passport
+var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+
 // my middleware
 app.get('*', (request, response, next) => {
   fs.readdir('./data', function(error, filelist){
