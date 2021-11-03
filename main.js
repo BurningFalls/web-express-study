@@ -26,8 +26,41 @@ app.use(session({
   store:new FileStore()
 }))
 
+var authData = {
+  email:'egoing777@gmail.com',
+  password:'111111',
+  nickname:'egoing'
+}
+
 // passport
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'pwd'
+  },
+  function(username, password, done) {
+    if (username === authData.email) {
+      console.log(1);
+      if (password === authData.password) {
+        console.log(2);
+        return done(null, authData);
+      } else {
+        console.log(3);
+        return done(null, false, {
+          message: 'Incorrect password.'
+        });
+      }
+    } else {
+      console.log(4);
+      return done(null, false, {
+        message: 'Incorrect username.'
+      });
+    }
+  }
+));
+
 app.post('/auth/login_process', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login'

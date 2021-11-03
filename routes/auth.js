@@ -5,13 +5,6 @@ var fs = require('fs');
 var sanitizeHtml = require('sanitize-html');
 var template = require('../lib/template.js');
 
-// do not share
-var authData = {
-  email:'egoing777@gmail.com',
-  password:'111111',
-  nickname:'egoing'
-}
-
 router.get('/login', (request, response) => {
   var title = 'WEB - login';
   var list = template.list(request.list);
@@ -27,6 +20,7 @@ router.get('/login', (request, response) => {
   response.send(html);
 })
 
+/*
 router.post('/login_process', (request, response) => {
   var post = request.body;
   var email = post.email;
@@ -41,6 +35,7 @@ router.post('/login_process', (request, response) => {
     response.send('Who?');
   }
 })
+*/
 
 router.get('/logout', (request, response) => {
   request.session.destroy(function(err) {
